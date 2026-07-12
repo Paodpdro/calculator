@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul's Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="main-container">
+        <div id="result">
+
+        </div>
+        <div id="operations-container">
+            <div class="num-sym"  id="add-symbol">+</div>
+            <div class="num-sym" id="subtract-symbol">-</div>
+            <div class="num-sym" id="multiply-symbol">*</div>
+            <div class="num-sym" id="divide-symbol">/</div>            
+        </div>
+        <div id="digits-others-container">
+            <div id="digits-container">
+                <div class="num-sym"  id="seven-button">7</div>
+                <div class="num-sym" id="eight-button">8</div>
+                <div class="num-sym" id="nine-button">9</div>
+                <div class="num-sym" id="four-button">4</div>
+                <div class="num-sym"  id="five-button">5</div>
+                <div class="num-sym" id="six-button">6</div>
+                <div class="num-sym" id="multiply-symbol">1</div>
+                <div class="num-sym" id="divide-symbol">2</div>                   
+                <div class="num-sym"  id="add-symbol">3</div>
+                <div class="num-sym" id="subtract-symbol">0</div>
+                <div class="num-sym" id="multiply-symbol">.</div>
+                <div class="num-sym" id="divide-symbol">C</div>    
+            </div>
+            <div id="del-equals-container">
+
+            </div>
+        </div>
+       
+    </div>
+
+    <script>
+        function add(num1, num2) {
+            return num1+num2;
+        } 
+        
+        function subtract(num1, num2) {
+            return num1-num2;
+        }
+        
+        function multiply(num1, num2) {
+            return num1*num2;
+        }
+        
+        function divide(num1, num2) {
+            return num1/num2;
+        }
+
+        function operate(operationSymbol, num1, num2) {
+            let result;
+            if (operationSymbol === add) {
+                result = add(num1, num2);
+            }
+            else if (operationSymbol === subtract) {
+                result = subtract(num1, num2);
+            }
+            else if (operationSymbol === multiply) {
+                result = multiply(num1, num2);
+            }
+            else {
+                result = divide(num1, num2);
+            }
+            return result;
+        }
+
+        let num1;
+        let operationSymbol;
+        let num2;
+
+
+    </script>
+</body>
+</html>

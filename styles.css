@@ -1,0 +1,50 @@
+div {
+    border: 1px solid black;
+    margin: 0;
+}
+
+#main-container {
+    height: 600px;
+    width: 400px;
+    margin: 0 auto;
+}
+
+#result {
+    height: 150px;
+}
+
+#operations-container {
+    display: flex;
+    height: 90px;
+    border: none;
+}
+
+#digits-others-container {
+    display: flex;
+    border: none;
+}
+.num-sym {
+    display: flex;
+    height: 90px;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+}
+
+#digits-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 360px;
+    border: none;
+}
+
+#del-equals-container {
+    width: 100px;
+    height: 360px;
+    border: none;
+}
+
+
