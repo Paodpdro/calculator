@@ -19,17 +19,17 @@
         </div>
         <div id="digits-others-container">
             <div id="digits-container">
-                <div class="num-sym"  id="seven-button">7</div>
-                <div class="num-sym" id="eight-button">8</div>
-                <div class="num-sym" id="nine-button">9</div>
-                <div class="num-sym" id="four-button">4</div>
-                <div class="num-sym"  id="five-button">5</div>
-                <div class="num-sym" id="six-button">6</div>
-                <div class="num-sym" id="one-button">1</div>
-                <div class="num-sym" id="two-button">2</div>                   
-                <div class="num-sym" id="three-button">3</div>
-                <div class="num-sym" id="zero-button">0</div>
-                <div class="num-sym" id="decimal-button">.</div>
+                <div class="num-sym digits"  id="seven-button">7</div>
+                <div class="num-sym digits" id="eight-button">8</div>
+                <div class="num-sym digits" id="nine-button">9</div>
+                <div class="num-sym digits" id="four-button">4</div>
+                <div class="num-sym digits"  id="five-button">5</div>
+                <div class="num-sym digits" id="six-button">6</div>
+                <div class="num-sym digits" id="one-button">1</div>
+                <div class="num-sym digits" id="two-button">2</div>                   
+                <div class="num-sym digits" id="three-button">3</div>
+                <div class="num-sym digits" id="zero-button">0</div>
+                <div class="num-sym digits" id="decimal-button">.</div>
                 <div class="num-sym" id="clear-button">C</div>    
             </div>
             <div id="del-equals-container">
@@ -40,45 +40,6 @@
        
     </div>
 
-    <script>
-        function add(num1, num2) {
-            return num1+num2;
-        } 
-        
-        function subtract(num1, num2) {
-            return num1-num2;
-        }
-        
-        function multiply(num1, num2) {
-            return num1*num2;
-        }
-        
-        function divide(num1, num2) {
-            return num1/num2;
-        }
-
-        function operate(operationSymbol, num1, num2) {
-            let result;
-            if (operationSymbol === add) {
-                result = add(num1, num2);
-            }
-            else if (operationSymbol === subtract) {
-                result = subtract(num1, num2);
-            }
-            else if (operationSymbol === multiply) {
-                result = multiply(num1, num2);
-            }
-            else {
-                result = divide(num1, num2);
-            }
-            return result;
-        }
-
-        let num1;
-        let operationSymbol;
-        let num2;
-
-
-    </script>
+    <script src="index.js"></script>
 </body>
 </html>
