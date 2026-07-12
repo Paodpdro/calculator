@@ -1,37 +1,70 @@
+body {
+    font-family: ui-rounded, system-ui, sans-serif ;
+    font-weight: 600;
+    color: white;
+    background-color: #e1e1e1;
+}
+
+
 div {
     border: 1px solid black;
     margin: 0;
 }
 
 #main-container {
-    height: 600px;
+    background-color: black;
+    height: 630px;
     width: 400px;
-    margin: 0 auto;
+    margin: 20px auto;
+    padding: 15px;
+    border-radius: 30px;
 }
 
-#result {
+#display {
+    display: flex;
     height: 150px;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-size: 50px;
+    border: none;
+    margin-bottom: 5px;
+    padding-left: -10px;
 }
 
+.num-sym {
+    display: flex;
+    height: 85px;
+    width: 90px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font-size: 20px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+#divide-symbol {
+    margin-right: 0;
+}
 #operations-container {
     display: flex;
-    height: 90px;
+    height: 100px;
     border: none;
+    width: 390px;
+}
+
+#operations-container > div {
+    background-color: #a5a5a5;
 }
 
 #digits-others-container {
     display: flex;
     border: none;
+    width: 390px;
 }
-.num-sym {
-    display: flex;
-    height: 90px;
-    width: 100px;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
 
-}
 
 #digits-container {
     display: flex;
@@ -41,12 +74,21 @@ div {
     border: none;
 }
 
+#digits-container > div {
+    background-color: #333333;
+}
+
 #del-equals-container {
-    width: 100px;
+    width: 90px;
     height: 360px;
     border: none;
 }
 
+#del-equals-container > div {
+    background-color: #f09a36;
+    margin-right: 0;
+}
+
 #equals-button {
-    height: 270px;
+    height: 275px;
 }
