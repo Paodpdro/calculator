@@ -1,18 +1,38 @@
 
 function add(num1, num2) {
-    return parseFloat(num1)+parseFloat(num2);
+    if(num1.includes('.') || num2.includes('.') ) { 
+        return parseFloat(num1)+parseFloat(num2);
+    }
+    else{
+        return parseInt(num1)+parseInt(num2);
+    }
 } 
 
 function subtract(num1, num2) {
-    return parseFloat(num1)-parseFloat(num2);
+    if(num1.includes('.') || num2.includes('.') ) { 
+        return parseFloat(num1)-parseFloat(num2);
+    }
+    else{
+        return parseInt(num1)-parseInt(num2);
+    }
 }
 
 function multiply(num1, num2) {
-    return parseFloat(num1)*parseFloat(num2);
+    if(num1.includes('.') || num2.includes('.') ) { 
+        return parseFloat(num1)*parseFloat(num2);
+    }
+    else{
+        return parseInt(num1)*parseInt(num2);
+    }
 }
 
 function divide(num1, num2) {
-    return parseFloat(num1)/parseFloat(num2);
+    if(num1.includes('.') || num2.includes('.') ) { 
+        return parseFloat(num1)/parseFloat(num2);
+    }
+    else{
+        return parseInt(num1)/parseInt(num2);
+    }
 }
 
 function operate(operationSymbol, num1, num2) {
@@ -83,6 +103,7 @@ let decimalClicked = false;
 let num1Active = true;
 let num2Active = false;
 let operationClickedFirst;
+let result;
 
 const displayText = document.querySelector("#display");
 const digitButtons = document.querySelectorAll(".digits");
@@ -126,14 +147,19 @@ operationButtons.forEach((button) => {
             console.log(operationClickedFirst, 'clicked first')
         }
         
-        else if (operationSymbol!= '' && num2!=='') {
-            displayText.textContent = operate(operationSymbol, num1, num2).toFixed(2);
-            num1 = displayText.textContent;
+        else if (operationSymbol!= '' && num2!=='') { 
+            operationSymbol = button.textContent;
+            result = operate(operationSymbol, num1, num2);
+            if (!Number.isInteger(result)) {
+                result = Number(result.toFixed(2))
+            }
+            displayText.textContent = result;
+            num1 = `${result}`;
             num2 = '';
             decimalClicked=false;
             console.log(decimalClicked)
-            num1Active = true;
-            num2Active =false;
+            num1Active = false;
+            num2Active =true;
             console.log(num1Active, 'num1')
             console.log(num2Active, 'num2')
             operationClickedFirst = false;
@@ -167,16 +193,13 @@ operationButtons.forEach((button) => {
 equals.addEventListener("click", () => {
     if (num1!=='' && operationSymbol!=='' && num2!=='') {
         console.log(operationSymbol, num1, num2)
-        if(num1.includes(".") || num2.includes(".")){
-            displayText.textContent = operate(operationSymbol, num1, num2).toFixed(2);
-            num1 = displayText.textContent;
-            num2='';
+        result = operate(operationSymbol, num1, num2);
+        if (!Number.isInteger(result)) {
+            result = Number(result.toFixed(2))
         }
-        else {
-            displayText.textContent = operate(operationSymbol, num1, num2);
-            num1 = displayText.textContent;
-            num2='';
-        }
+        displayText.textContent = result;
+        num1 = `${result}`;
+        num2='';
         resultExist=true;
         console.log(resultExist, 'resultExist')
         num1Active = false;
