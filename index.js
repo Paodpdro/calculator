@@ -69,15 +69,46 @@ function clickedDigit(number, symbol) {
         return;
     }
 
-    if(num2Active) {
-        num2 += `${number}`;
-        console.log(num2, "num2", num1, "num1")
-        displayText.textContent = num2;
+    if (operationClickedFirst ||num1 =='0') {
+        num1 = '';
+        num1 += `${number}`;
+        console.log(num1, "num1")
+        displayText.textContent = num1;
+        passed = true;
         console.log(decimalClicked)
-        num2Active = true;
-        num1Active = false;
+        num1Active = true;
+        num2Active = false;
         console.log(num1Active, 'num1')
         console.log(num2Active, 'num2')
+        operationClickedFirst = false;
+        console.log(operationClickedFirst, 'clicked first')
+        return;
+    }
+
+    if(num2Active) {
+        if (num2 =='0') {
+            num2 ='';
+            num2 += `${number}`;
+            console.log(num2, "num2", num1, "num1")
+            displayText.textContent = num2;
+            console.log(decimalClicked)
+            num2Active = true;
+            num1Active = false;
+            console.log(num1Active, 'num1')
+            console.log(num2Active, 'num2')
+            
+        }
+        else {
+            num2 += `${number}`;
+            console.log(num2, "num2", num1, "num1")
+            displayText.textContent = num2;
+            console.log(decimalClicked)
+            num2Active = true;
+            num1Active = false;
+            console.log(num1Active, 'num1')
+            console.log(num2Active, 'num2')
+        }
+        
 
     }
     else if (num1Active) {
@@ -134,21 +165,21 @@ operationButtons.forEach((button) => {
             return;
         }
 
-        if (resultExist) {
-            operationSymbol = button.textContent;
-            resultExist = false;
-            decimalClicked=false;
-            console.log(decimalClicked)
-            num1Active = false;
-            num2Active =true;
-            console.log(num1Active, 'num1')
-            console.log(num2Active, 'num2')
-            operationClickedFirst = false;
-            console.log(operationClickedFirst, 'clicked first')
-        }
+        // if (resultExist) {
+        //     operationSymbol = button.textContent;
+        //     resultExist = false;
+        //     decimalClicked=false;
+        //     console.log(decimalClicked)
+        //     num1Active = false;
+        //     num2Active =true;
+        //     console.log(num1Active, 'num1')
+        //     console.log(num2Active, 'num2')
+        //     operationClickedFirst = false;
+        //     console.log(operationClickedFirst, 'clicked first')
+        //     return;
+        // }
         
         else if (operationSymbol!= '' && num2!=='') { 
-            operationSymbol = button.textContent;
             result = operate(operationSymbol, num1, num2);
             if (!Number.isInteger(result)) {
                 result = Number(result.toFixed(2))
@@ -157,6 +188,8 @@ operationButtons.forEach((button) => {
             num1 = `${result}`;
             num2 = '';
             decimalClicked=false;
+            resultExist=true;
+            console.log(resultExist, 'results Exist')
             console.log(decimalClicked)
             num1Active = false;
             num2Active =true;
@@ -164,6 +197,7 @@ operationButtons.forEach((button) => {
             console.log(num2Active, 'num2')
             operationClickedFirst = false;
             console.log(operationClickedFirst, 'clicked first')
+            return;
         }
         else if(num1==='') {
             operationSymbol = button.textContent;
@@ -173,6 +207,7 @@ operationButtons.forEach((button) => {
             console.log(decimalClicked)
             operationClickedFirst = true;
             console.log(operationClickedFirst, 'clicked first')
+            return;
         }
         else {
             operationSymbol = button.textContent;
