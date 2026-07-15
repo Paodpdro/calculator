@@ -53,7 +53,7 @@ function operate(operationSymbol, num1, num2) {
 }
 
 function clickedDigit(number, symbol) {
-    if (resultExist) {
+    if (resultExist) { //So consecutive operations work. Num2 here is needed so consecutive operations work since num1 is already the result.
         console.log('displayclicked1')
         console.log(operationSymbol)
         num2 += `${number}`;
@@ -117,15 +117,40 @@ function clickedDigit(number, symbol) {
     else if (num1Active) {
         console.log('displayclicked4')
         console.log(operationSymbol)
-        num1 += `${number}`;
-        console.log(num1, "num1")
-        displayText.textContent = num1;
-        console.log(decimalClicked)
-        num1Active = true;
-        num2Active = false;
-        console.log(num1Active, 'num1')
-        console.log(num2Active, 'num2')
-
+        if (num1 == 0) {
+            num1='';
+            num1 += `${number}`;
+            console.log(num1, "num1")
+            displayText.textContent = num1;
+            console.log(decimalClicked)
+            num1Active = true;
+            num2Active = false;
+            console.log(num1Active, 'num1')
+            console.log(num2Active, 'num2')
+        }
+        else {
+            if (resultExist) {
+                num1='';
+                num1 += `${number}`;
+                console.log(num1, "num1")
+                displayText.textContent = num1;
+                console.log(decimalClicked)
+                num1Active = true;
+                num2Active = false;
+                console.log(num1Active, 'num1')
+                console.log(num2Active, 'num2') 
+            }
+            else {
+                num1 += `${number}`;
+                console.log(num1, "num1")
+                displayText.textContent = num1;
+                console.log(decimalClicked)
+                num1Active = true;
+                num2Active = false;
+                console.log(num1Active, 'num1')
+                console.log(num2Active, 'num2')
+            }
+        }
     }
 }
 
@@ -153,8 +178,8 @@ digitButtons.forEach((button) => {
 
 operationButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        
-        if (operationSymbol!= '' && num2!=='') { 
+        //i think add if result active here
+        if (operationSymbol!= '' && num2!=='') { //For automatically solving a pair with an operation if another operation is clicked
             console.log('here2')
             console.log(operationSymbol)
             result = operate(operationSymbol, num1, num2);
@@ -168,11 +193,11 @@ operationButtons.forEach((button) => {
             num1 = `${result}`;
             num2 = '';
             decimalClicked=false;
-            resultExist=true;
+            resultExist=true; //most important
             console.log(resultExist, 'results Exist')
             console.log(decimalClicked)
-            num1Active = false;
-            num2Active =true;
+            num1Active = true; //Need this especially for backspacing
+            num2Active =false;
             console.log(num1Active, 'num1')
             console.log(num2Active, 'num2')
             operationClickedFirst = false;
@@ -234,7 +259,7 @@ equals.addEventListener("click", () => {
         displayText.textContent = result;
         num1 = `${result}`;
         num2='';
-        resultExist=true;
+        // resultExist=true; problem
         console.log(resultExist, 'resultExist')
         num1Active = true;
         num2Active =false;
@@ -333,3 +358,4 @@ backspace.addEventListener('click', () => {
 
     }
 })
+
