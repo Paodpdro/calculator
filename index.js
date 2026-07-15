@@ -69,16 +69,16 @@ function clickedDigit(number, symbol) {
         return;
     }
 
-    if (operationClickedFirst ||num1 =='0') {
+    if (operationClickedFirst) {
         console.log('displayclicked2')
         console.log(operationSymbol)
-        num1 = '';
-        num1 += `${number}`;
+        num2 = `${number}`;
         console.log(num1, "num1")
-        displayText.textContent = num1;
+        console.log(num2, "num2")
+        displayText.textContent = num2;
         console.log(decimalClicked)
-        num1Active = true;
-        num2Active = false;
+        num1Active = false;
+        num2Active = true;
         console.log(num1Active, 'num1')
         console.log(num2Active, 'num2')
         operationClickedFirst = false;
@@ -154,23 +154,6 @@ digitButtons.forEach((button) => {
 operationButtons.forEach((button) => {
     button.addEventListener("click", () => {
         
-
-        if (resultExist) {
-            console.log('here1')
-            console.log(operationSymbol)
-            operationSymbol = button.textContent;
-            resultExist = false;
-            decimalClicked=false;
-            console.log(decimalClicked)
-            num1Active = false;
-            num2Active =true;
-            console.log(num1Active, 'num1')
-            console.log(num2Active, 'num2')
-            operationClickedFirst = false;
-            console.log(operationClickedFirst, 'clicked first')
-            return;
-        }
-        
         if (operationSymbol!= '' && num2!=='') { 
             console.log('here2')
             console.log(operationSymbol)
@@ -178,6 +161,9 @@ operationButtons.forEach((button) => {
             if (!Number.isInteger(result)) {
                 result = Number(result.toFixed(2))
             }
+            operationSymbol = button.textContent
+            console.log(operationSymbol)
+
             displayText.textContent = result;
             num1 = `${result}`;
             num2 = '';
@@ -195,8 +181,8 @@ operationButtons.forEach((button) => {
         }
         else if(num1==='') {
             console.log('here3')
-            console.log(operationSymbol)
             operationSymbol = button.textContent;
+            console.log(operationSymbol)
             num1='0';
             num1 = displayText.textContent;
             decimalClicked=false;
@@ -207,8 +193,8 @@ operationButtons.forEach((button) => {
         }
         else {
             console.log('here4')
-            console.log(operationSymbol)
             operationSymbol = button.textContent;
+            console.log(operationSymbol)
             decimalClicked=false;
             console.log(decimalClicked)
             num1Active = false;
@@ -237,6 +223,7 @@ equals.addEventListener("click", () => {
             console.log(num2Active, 'num2')
             operationClickedFirst = false;
             console.log(operationClickedFirst, 'clicked first')
+            console.log(num2, "num2", num1, "num1")
             return;
         }
         console.log(operationSymbol, num1, num2)
@@ -249,10 +236,12 @@ equals.addEventListener("click", () => {
         num2='';
         resultExist=true;
         console.log(resultExist, 'resultExist')
-        num1Active = false;
-        num2Active =true;
+        num1Active = true;
+        num2Active =false;
         console.log(num1Active, 'num1')
         console.log(num2Active, 'num2')
+        console.log(num2, "num2", num1, "num1")
+
     }  
 })
 
@@ -269,7 +258,7 @@ clear.addEventListener("click", () => {
 })
 
 decimal.addEventListener('click', () => {
-    if (resultExist) {
+    if (resultExist) { //This code is needed because without this, adding a decimal after the equal sign will go to if result exist.
        if(!num1.includes(".")) {
             num1+='.';
             displayText.textContent = num1;
@@ -286,12 +275,16 @@ decimal.addEventListener('click', () => {
         }     
     }
 
-    else if(num1Active) {
+    if(num1Active) {
         if(!num1.includes(".")) {
             num1+='.';
             displayText.textContent = num1;
             decimalClicked = true;
             console.log(decimalClicked)
+            console.log(num2, "num2", num1, "num1")
+            console.log(num1Active, 'num1')
+            console.log(num2Active, 'num2')
+
         }
         else {
             return
@@ -304,6 +297,10 @@ decimal.addEventListener('click', () => {
             displayText.textContent = num2;
             decimalClicked = true;
             console.log(decimalClicked)
+            console.log(num2, "num2", num1, "num1")
+            console.log(num1Active, 'num1')
+            console.log(num2Active, 'num2')
+
         }
         else {
             return
@@ -313,18 +310,26 @@ decimal.addEventListener('click', () => {
 })
 
 backspace.addEventListener('click', () => {
-    // if(operationClickedFirst) {
-    //     num1 = '';
-    //     displayText.textContent = num1;
-
-    // }
 
     if (num1Active) {
         num1 = num1.slice(0,-1)
         displayText.textContent = num1;
+        console.log(num2, "num2", num1, "num1")
+        console.log(num1Active, 'num1')
+        console.log(num2Active, 'num2')
+        resultExist=false;
+        console.log(resultExist, 'results Exist')
+
+   
     }
     else if(num2Active) {
         num2 = num2.slice(0,-1)
         displayText.textContent = num2;
+        console.log(num2, "num2", num1, "num1")
+        console.log(num1Active, 'num1')
+        console.log(num2Active, 'num2')
+        console.log(resultExist, 'results Exist')
+
+
     }
 })
