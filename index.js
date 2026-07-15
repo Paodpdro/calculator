@@ -54,27 +54,28 @@ function operate(operationSymbol, num1, num2) {
 
 function clickedDigit(number, symbol) {
     if (resultExist) {
-        num1='';
-        num1 += `${number}`;
-        console.log(num1, "num1")
-        displayText.textContent = num1;
-        operationSymbol='';
-        num2='';
-        resultExist=false;
+        console.log('displayclicked1')
+        console.log(operationSymbol)
+        num2 += `${number}`;
+        console.log(num1, 'num1')
+        console.log(num2, "num2")
+        displayText.textContent = num2;
+        // resultExist=false;
         console.log(decimalClicked)
-        num1Active = true;
-        num2Active =false;
+        num1Active = false;
+        num2Active =true;
         console.log(num1Active, 'num1')
         console.log(num2Active, 'num2')
         return;
     }
 
     if (operationClickedFirst ||num1 =='0') {
+        console.log('displayclicked2')
+        console.log(operationSymbol)
         num1 = '';
         num1 += `${number}`;
         console.log(num1, "num1")
         displayText.textContent = num1;
-        passed = true;
         console.log(decimalClicked)
         num1Active = true;
         num2Active = false;
@@ -86,6 +87,8 @@ function clickedDigit(number, symbol) {
     }
 
     if(num2Active) {
+        console.log('displayclicked3')
+        console.log(operationSymbol)
         if (num2 =='0') {
             num2 ='';
             num2 += `${number}`;
@@ -112,10 +115,11 @@ function clickedDigit(number, symbol) {
 
     }
     else if (num1Active) {
+        console.log('displayclicked4')
+        console.log(operationSymbol)
         num1 += `${number}`;
         console.log(num1, "num1")
         displayText.textContent = num1;
-        passed = true;
         console.log(decimalClicked)
         num1Active = true;
         num2Active = false;
@@ -128,7 +132,6 @@ function clickedDigit(number, symbol) {
 let num1 = '';
 let operationSymbol ='';
 let num2 ='';
-let passed;
 let resultExist;
 let decimalClicked = false;
 let num1Active = true;
@@ -150,36 +153,27 @@ digitButtons.forEach((button) => {
 
 operationButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        if(num1==='0' && button.textContent==='/'){
-            displayText.textContent="Error";
-            operationSymbol='';
-            num1='';
-            decimalClicked =false;
+        
+
+        if (resultExist) {
+            console.log('here1')
+            console.log(operationSymbol)
+            operationSymbol = button.textContent;
+            resultExist = false;
+            decimalClicked=false;
             console.log(decimalClicked)
-            num1Active = true;
-            num2Active =false;
+            num1Active = false;
+            num2Active =true;
             console.log(num1Active, 'num1')
             console.log(num2Active, 'num2')
             operationClickedFirst = false;
             console.log(operationClickedFirst, 'clicked first')
             return;
         }
-
-        // if (resultExist) {
-        //     operationSymbol = button.textContent;
-        //     resultExist = false;
-        //     decimalClicked=false;
-        //     console.log(decimalClicked)
-        //     num1Active = false;
-        //     num2Active =true;
-        //     console.log(num1Active, 'num1')
-        //     console.log(num2Active, 'num2')
-        //     operationClickedFirst = false;
-        //     console.log(operationClickedFirst, 'clicked first')
-        //     return;
-        // }
         
-        else if (operationSymbol!= '' && num2!=='') { 
+        if (operationSymbol!= '' && num2!=='') { 
+            console.log('here2')
+            console.log(operationSymbol)
             result = operate(operationSymbol, num1, num2);
             if (!Number.isInteger(result)) {
                 result = Number(result.toFixed(2))
@@ -200,6 +194,8 @@ operationButtons.forEach((button) => {
             return;
         }
         else if(num1==='') {
+            console.log('here3')
+            console.log(operationSymbol)
             operationSymbol = button.textContent;
             num1='0';
             num1 = displayText.textContent;
@@ -210,6 +206,8 @@ operationButtons.forEach((button) => {
             return;
         }
         else {
+            console.log('here4')
+            console.log(operationSymbol)
             operationSymbol = button.textContent;
             decimalClicked=false;
             console.log(decimalClicked)
@@ -227,6 +225,20 @@ operationButtons.forEach((button) => {
 
 equals.addEventListener("click", () => {
     if (num1!=='' && operationSymbol!=='' && num2!=='') {
+        if(num2==='0' && operationSymbol==='/'){
+            displayText.textContent="Error";
+            operationSymbol='';
+            num1='';
+            decimalClicked =false;
+            console.log(decimalClicked)
+            num1Active = true;
+            num2Active =false;
+            console.log(num1Active, 'num1')
+            console.log(num2Active, 'num2')
+            operationClickedFirst = false;
+            console.log(operationClickedFirst, 'clicked first')
+            return;
+        }
         console.log(operationSymbol, num1, num2)
         result = operate(operationSymbol, num1, num2);
         if (!Number.isInteger(result)) {
@@ -245,8 +257,8 @@ equals.addEventListener("click", () => {
 })
 
 clear.addEventListener("click", () => {
-    displayText.textContent='';
-    num1='';
+    displayText.textContent='0';
+    num1='0';
     num2='';
     operationSymbol='';
     decimalClicked=false;
@@ -274,7 +286,7 @@ decimal.addEventListener('click', () => {
         }     
     }
 
-    if(num1Active) {
+    else if(num1Active) {
         if(!num1.includes(".")) {
             num1+='.';
             displayText.textContent = num1;
