@@ -52,7 +52,7 @@ function operate(operationSymbol, num1, num2) {
     return result;
 }
 
-function clickedDigit(number, symbol) {
+function clickedDigit(number) {
 
     if (operationClickedFirst) {
         console.log('displayclicked2')
@@ -155,6 +155,9 @@ function clickedDigit(number, symbol) {
 }
 
 function clickedOperations(button) {
+    if (button =='x'|| button =='X') {
+        button = '*';
+    }
      //i think add if result active here
     if (operationSymbol!= '' && num2!=='') { //For automatically solving a pair with an operation if another operation is clicked
         console.log('here2')
@@ -163,7 +166,7 @@ function clickedOperations(button) {
         if (!Number.isInteger(result)) {
             result = Number(result.toFixed(2))
         }
-        operationSymbol = button.textContent
+        operationSymbol = button
         console.log(operationSymbol)
 
         displayText.textContent = result;
@@ -173,7 +176,7 @@ function clickedOperations(button) {
         resultExist=true; //most important
         console.log(resultExist, 'results Exist')
         console.log(decimalClicked)
-        num1Active = false; //Need this especially for backspacing
+        num1Active = false; //Need this especially for backspacing || but i changed it again so i dont really know how it works now
         num2Active =true;
         console.log(num1Active, 'num1')
         console.log(num2Active, 'num2')
@@ -183,7 +186,7 @@ function clickedOperations(button) {
     }
     else if(num1==='') {
         console.log('here3')
-        operationSymbol = button.textContent;
+        operationSymbol = button;
         console.log(operationSymbol)
         num1='0';
         num1 = displayText.textContent;
@@ -195,7 +198,7 @@ function clickedOperations(button) {
     }
     else {
         console.log('here4')
-        operationSymbol = button.textContent;
+        operationSymbol = button;
         console.log(operationSymbol)
         decimalClicked=false;
         console.log(decimalClicked)
@@ -209,33 +212,7 @@ function clickedOperations(button) {
     }
 }
 
-let num1 = '';
-let operationSymbol ='';
-let num2 ='';
-let resultExist;
-let decimalClicked = false;
-let num1Active = true;
-let num2Active = false;
-let operationClickedFirst;
-let result;
-
-const displayText = document.querySelector("#display");
-const digitButtons = document.querySelectorAll(".digits");
-const operationButtons = document.querySelectorAll(".operation");
-const equals = document.querySelector("#equals-button");
-const clear = document.querySelector('#clear-button');
-const decimal = document.querySelector('#decimal-button');
-const backspace = document.querySelector('#backspace-button');
-
-digitButtons.forEach((button) => {
-    button.addEventListener("click", () => clickedDigit(button.textContent, operationSymbol))
-})
-
-operationButtons.forEach((button) => {
-    button.addEventListener("click", () => clickedOperations(button))
-})
-
-equals.addEventListener("click", () => {
+function clickedEquals() {
     if (num1!=='' && operationSymbol!=='' && num2!=='') {
         if(num2==='0' && operationSymbol==='/'){
             displayText.textContent="Error";
@@ -269,22 +246,10 @@ equals.addEventListener("click", () => {
         console.log(num2, "num2", num1, "num1")
 
     }  
-})
+}
 
-clear.addEventListener("click", () => {
-    displayText.textContent='0';
-    num1='0';
-    num2='';
-    operationSymbol='';
-    decimalClicked=false;
-    num1Active = true;
-    num2Active =false;
-    console.log(num1Active, 'num1')
-    console.log(num2Active, 'num2')
-})
-
-decimal.addEventListener('click', () => {
-    // if (resultExist) { //This code is needed because without this, adding a decimal after the equal sign will go to if result exist.
+function clickedDecimal() {
+     // if (resultExist) { //This code is needed because without this, adding a decimal after the equal sign will go to if result exist.
     //    if(!num1.includes(".")) {
     //         num1+='.';
     //         displayText.textContent = num1;
@@ -335,12 +300,10 @@ decimal.addEventListener('click', () => {
             return
         }
     }
-    
-})
+}
 
-backspace.addEventListener('click', () => {
-
-    if (num1Active) {
+function clickedBackspace() {
+     if (num1Active) {
         num1 = num1.slice(0,-1)
         displayText.textContent = num1;
         console.log(num2, "num2", num1, "num1")
@@ -358,8 +321,79 @@ backspace.addEventListener('click', () => {
         console.log(num1Active, 'num1')
         console.log(num2Active, 'num2')
         console.log(resultExist, 'results Exist')
+    }
+}
+let num1 = '';
+let operationSymbol ='';
+let num2 ='';
+let resultExist;
+let decimalClicked = false;
+let num1Active = true;
+let num2Active = false;
+let operationClickedFirst;
+let result;
 
+const displayText = document.querySelector("#display");
+const digitButtons = document.querySelectorAll(".digits");
+const operationButtons = document.querySelectorAll(".operation");
+const equals = document.querySelector("#equals-button");
+const clear = document.querySelector('#clear-button');
+const decimal = document.querySelector('#decimal-button');
+const backspace = document.querySelector('#backspace-button');
 
+digitButtons.forEach((button) => {
+    button.addEventListener("click", () => clickedDigit(button.textContent))
+})
+
+document.addEventListener("keydown", (event) => {
+    let validNumbers = "0123456789"
+    if (validNumbers.includes(event.key)) {
+        clickedDigit(event.key)
     }
 })
+operationButtons.forEach((button) => {
+    button.addEventListener("click", () => clickedOperations(button.textContent))
+})
+
+document.addEventListener("keydown", (event) => {
+    if (event.key == '+' || event.key == '-' || event.key == '*' || event.key == 'x' || event.key == 'X' ||event.key == '/') {
+        clickedOperations(event.key);
+    }
+})
+
+equals.addEventListener("click", () => clickedEquals());
+
+document.addEventListener("keydown", (event) => {
+    if (event.key ==='Enter' || event.key ==='=') {
+        clickedEquals();
+    }
+})
+clear.addEventListener("click", () => {
+    displayText.textContent='0';
+    num1='0';
+    num2='';
+    operationSymbol='';
+    decimalClicked=false;
+    num1Active = true;
+    num2Active =false;
+    console.log(num1Active, 'num1')
+    console.log(num2Active, 'num2')
+})
+
+decimal.addEventListener('click', () => clickedDecimal());
+
+document,addEventListener("keydown", (event) => {
+    if(event.key =='.') {
+        clickedDecimal(event.key)
+    }
+})
+
+backspace.addEventListener('click', () => clickedBackspace());
+
+document,addEventListener("keydown", (event) => {
+    if(event.key =='Backspace') {
+        clickedBackspace()
+    }
+})
+
 
